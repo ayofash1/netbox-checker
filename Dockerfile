@@ -7,7 +7,7 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 COPY . .
-RUN go build -o checker ./cmd/checker
+RUN go build -o checker ./cmd
 
 # Stage 2: Runtime
 FROM ubuntu:22.04
