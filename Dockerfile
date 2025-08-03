@@ -3,7 +3,9 @@ FROM golang:1.21 as builder
 
 WORKDIR /app
 COPY . .
-RUN go build -o checker ./cmd/checker
+# Update the build path below to match your project structure.
+# If your main.go is at the project root, use:
+RUN go build -o checker .
 
 # Stage 2: Run
 FROM alpine:latest
