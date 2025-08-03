@@ -1,0 +1,34 @@
+rules:
+  - id: tag-requirement
+    description: Devices must have the tag 'production' or 'compliant'
+    type: tag
+    required_tags:
+      - production
+      - compliant
+
+  - id: interface-naming-standard
+    description: Interfaces must follow standard naming convention (ethX or ensX)
+    type: interface
+    regex: "^(eth\\d+|ens\\d+)$"
+
+  - id: ip-address-range
+    description: Device primary IP must fall within 10.0.0.0/8
+    type: ip_range
+    field: primary_ip4
+    cidr: "10.0.0.0/8"
+
+  - id: role-enforcement
+    description: Device role must be one of [web, db, cache]
+    type: allowed_values
+    field: role
+    allowed:
+      - web
+      - db
+      - cache
+
+  - id: location-required
+    description: Devices must be assigned to a site and rack
+    type: required_fields
+    fields:
+      - site
+      - rack
