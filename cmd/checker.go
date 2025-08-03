@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/ayofash1/netbox-checker/internal/netbox"
 	"github.com/ayofash1/netbox-checker/internal/rules"
@@ -10,7 +11,8 @@ import (
 
 func main() {
 
-	netboxURL := "http://localhost:8080" // or your LoadBalancer IP
+	netboxURL := os.Getenv("NETBOX_URL")
+
 	netboxToken := "f9558e5a2322369437ef631f606e84754d72bcef"
 
 	ruleSet, err := rules.ParseRules("compliance-rules.yaml")
