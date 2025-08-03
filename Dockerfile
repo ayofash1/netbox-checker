@@ -2,10 +2,11 @@
 FROM golang:1.21 as builder
 
 WORKDIR /app
+COPY go.mod go.sum ./
+RUN go mod download
+
 COPY . .
-# Update the build path below to match your project structure.
-# If your main.go is at the project root, use:
-RUN go build -o checker .
+RUN go build -o checker ./cmd
 
 # Stage 2: Run
 FROM alpine:latest
@@ -14,7 +15,6 @@ WORKDIR /app
 COPY --from=builder /app/checker /app/checker
 COPY compliance-rules.yaml /app/compliance-rules.yaml
 
-# Optional: add ca-certificates if using TLS NetBox
 RUN apk add --no-cache ca-certificates
 
 ENV NETBOX_URL=http://netbox.argo.local
